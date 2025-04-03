@@ -139,4 +139,5 @@ public interface Imodel {
      * Clear the wishlist.
      */
     void clearWishlist();
+
 }
