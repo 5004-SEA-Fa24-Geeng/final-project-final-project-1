@@ -39,12 +39,5 @@ public class FetchImage {
         }
     }
 
-    public static void main(String[] args) {
-        String make = "Honda";
-        String model = "Civic";
-        int year = 2000;
 
-        String imageUrl = FetchImage.fetchUrl(make, model,year);
-        System.out.println("Fetched Image URL: " + imageUrl);
-    }
 }

@@ -1,9 +1,1 @@
 id,price,zip,mileage,make,model,year,trim,engineInfo,bodyType,numOfCylinders,driveType
-80773,11600.0,07852,97200,Ford,Mustang,1968,Stock,289 cu. in. V8,Coupe,8,RWD
-15603,16600.0,65080,1008,Ford,Mustang,1967,GT,351 V-8,Coupe,8,RWD
-45861,45400.0,59101,2357,Ford,Mustang,2016,Roush,5.0L Supercharged,Coupe,8,RWD
-77900,2550.0,07840,174102,Toyota,Yaris,2009,Unknown Trim,1.5L DOHC 16V,Unknown Body Type,4,FWD
-67537,760.0,32533,144002,Ford,Mustang,1987,LX,5.0 V8,Coupe,8,RWD
-92293,13410.0,75904,51793,Ford,Mustang,1992,GT,5.0L V8,Coupe,8,RWD
-165573,2650.0,330**,89592,Ford,Mustang,1993,LX,2.3L Gas I4,Convertible,4,RWD
-137178,7500.0,786**,84430,Ford,Mustang,1988,LX,5.0L Gas V8,Sedan,0,RWD

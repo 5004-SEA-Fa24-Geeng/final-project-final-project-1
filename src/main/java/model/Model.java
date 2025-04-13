@@ -458,4 +458,19 @@ public class Model implements Imodel {
         }
         Formatter.write(wishList, format, path);
     }
+
+    /**
+     * setter for all cars.
+     * @param allCars all cars
+     */
+    public void setAllCars(List<CarRecord> allCars) {
+        this.allCars = allCars;
+    }
+    /**
+     * setter wishlist.
+     * @param wishList whitelist
+     */
+    public void setWishList(Set<CarRecord> wishList) {
+        this.wishList = wishList;
+    }
 }
