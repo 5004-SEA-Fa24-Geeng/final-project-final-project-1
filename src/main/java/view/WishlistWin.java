@@ -1,7 +1,10 @@
 package view;
 
 import controller.listener.WishlistBackMouseListener;
+import controller.listener.WishlistRemoveActionListener;
+import controller.listener.WishlistRemoveAllActionListener;
 import model.CarRecord;
+import model.FetchImage;
 import model.Imodel;
 
 import javax.swing.*;
@@ -29,15 +32,34 @@ public class WishlistWin extends JFrame {
         contentPanel.setBackground(Color.WHITE);
 
         // Header panel
-        JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel headerPanel = new JPanel(new BorderLayout());
         headerPanel.setPreferredSize(new Dimension(1100, 50));
         headerPanel.setBackground(Color.WHITE);
+
+        // "Remove All" panel
+        JPanel removeAllPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        removeAllPanel.setBackground(Color.WHITE);
+
+        // "Remove All" button
+        JButton removeAllButton = new JButton("Remove All");
+        removeAllButton.addActionListener(new WishlistRemoveAllActionListener(this, model));
+
+        removeAllPanel.add(removeAllButton);
+
+        headerPanel.add(removeAllPanel, BorderLayout.EAST);
+
+        // Back panel
+        JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        backPanel.setBackground(Color.WHITE);
 
         // Back button
         backButton = new JButton("Back");
         backButton.setFont(new Font("Arial", Font.PLAIN, 14));
         backButton.addMouseListener(new WishlistBackMouseListener(this, detailsWin));
-        headerPanel.add(backButton);
+
+        backPanel.add(backButton);
+
+        headerPanel.add(backPanel, BorderLayout.WEST);
 
         // Scrollable list panel
         listPanel = new JPanel();
@@ -97,13 +119,22 @@ public class WishlistWin extends JFrame {
             carInfoPanel.add(carTitleLabel);
             carInfoPanel.add(carPriceLabel);
 
+            // Remove button with confirmation
+            JButton removeButton = new JButton("Remove");
+            removeButton.addActionListener(new WishlistRemoveActionListener(this, model, car));
+
             rowPanel.add(carImageLabel, BorderLayout.WEST);
             rowPanel.add(carInfoPanel, BorderLayout.CENTER);
+            rowPanel.add(removeButton, BorderLayout.EAST);
 
             listPanel.add(rowPanel);
         }
 
         listPanel.revalidate();
         listPanel.repaint();
+    }
+
+    public void refreshWishlist() {
+        loadWishlist();
     }
 }

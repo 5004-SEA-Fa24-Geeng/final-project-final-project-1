@@ -1,21 +1,36 @@
 package view;
 
+import controller.MakeModelController;
 import utility.Data;
-import utility.MakeAndModelData;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.HashMap;
+import java.awt.*;
 import java.util.List;
 
+/**
+ * Represents the search window where users can select car make and model.
+ * Provides a GUI for filtering car listings based on user selection.
+ */
 public class SearchWin extends JFrame {
-    private JLabel searchBgLabel = new JLabel(Data.START_BG_IMG_ICON);
-    private JComboBox<String> makeComboBox;
-    private JComboBox<String> modelComboBox;
-    private JButton searchButton;
-    private HashMap<String, List<String>> makeModelData;
 
+    /** Background label for the search window UI. */
+    private JLabel searchBgLabel = new JLabel(Data.START_BG_IMG_ICON);
+
+    /** Dropdown for selecting car make. */
+    private JComboBox<String> makeComboBox;
+
+    /** Dropdown for selecting car model. */
+    private JComboBox<String> modelComboBox;
+
+    /** Search button to initiate search based on selected criteria. */
+    private JButton searchButton;
+
+    /** Controller responsible for handling dropdown updates. */
+    private MakeModelController makeModelController;
+
+    /**
+     * Constructs the Search Window and initializes UI components.
+     */
     public SearchWin() {
         setTitle("Search");
         setSize(900, 700);
@@ -24,78 +39,90 @@ public class SearchWin extends JFrame {
         setResizable(false);
         setLayout(null);
 
+        // Set background label and layout
         searchBgLabel.setBounds(0, 0, 900, 700);
+        searchBgLabel.setLayout(new BorderLayout());
         add(searchBgLabel);
 
-        // Load CSV data
-        makeModelData = MakeAndModelData.getMakeModelMap();
+        // Content panel to arrange dropdowns and button horizontally
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
+        contentPanel.setOpaque(false);
 
-        // Make ComboBox with "Select" Option
+        // Make dropdown setup
         makeComboBox = new JComboBox<>();
-        makeComboBox.addItem("Select"); // Default option
-        for (String make : makeModelData.keySet()) {
-            makeComboBox.addItem(make);
-        }
-        makeComboBox.setBounds(150, 300, 220, 80);
-        searchBgLabel.add(makeComboBox);
+        makeComboBox.setPreferredSize(new Dimension(320, 40));
+        makeComboBox.setMaximumSize(new Dimension(320, 40));
+        makeComboBox.setBorder(BorderFactory.createEmptyBorder(0, 90, 0, 0));
+        makeComboBox.setFont(new Font("Arial", Font.PLAIN, 16));
+        contentPanel.add(makeComboBox);
 
-        // Model ComboBox
+        // Model dropdown setup, disabled initially
         modelComboBox = new JComboBox<>();
-        modelComboBox.addItem("Select"); // Default option
-        modelComboBox.setEnabled(false); // Disabled initially
-        modelComboBox.setBounds(400, 300, 220, 80);
-        searchBgLabel.add(modelComboBox);
+        modelComboBox.setEnabled(false);
+        modelComboBox.setPreferredSize(new Dimension(320, 40));
+        modelComboBox.setMaximumSize(new Dimension(320, 40));
+        modelComboBox.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 60));
+        modelComboBox.setFont(new Font("Arial", Font.PLAIN, 16));
+        contentPanel.add(modelComboBox);
 
-        // Search Button
+        // Search button setup
         searchButton = new JButton("Search");
-        searchButton.setBounds(650, 320, 150, 40);
-        searchBgLabel.add(searchButton);
+        searchButton.setPreferredSize(new Dimension(160, 40));
+        searchButton.setMaximumSize(new Dimension(160, 40));
+        searchButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        contentPanel.add(searchButton);
 
-        // Listener for make selection
-        makeComboBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String selectedMake = (String) makeComboBox.getSelectedItem();
-                updateModelList(selectedMake);
-            }
-        });
+        // Add contentPanel to background label
+        searchBgLabel.add(contentPanel, BorderLayout.CENTER);
+
+        // Initialize the controller after UI components are created
+        makeModelController = new MakeModelController(this);
     }
 
-    // Updates model list based on selected make
-    private void updateModelList(String make) {
+    /**
+     * Updates the model dropdown with a new list of car models.
+     * @param models The list of car models to display.
+     */
+    public void updateModelDropdown(List<String> models) {
         modelComboBox.removeAllItems();
-        modelComboBox.addItem("Select");
+        modelComboBox.addItem("Select"); // Default option
 
-        if (makeModelData.containsKey(make)) {
-            for (String model : makeModelData.get(make)) {
-                modelComboBox.addItem(model);
-            }
-            modelComboBox.setEnabled(true);
-        } else {
-            modelComboBox.setEnabled(false);
+        for (String model : models) {
+            modelComboBox.addItem(model);
         }
+
+        modelComboBox.setEnabled(!models.isEmpty()); // Enable dropdown if models exist
     }
 
+    /**
+     * Gets the selected car make from the dropdown.
+     * @return The selected make as a string.
+     */
     public String getSelectedMake() {
         return (String) makeComboBox.getSelectedItem();
     }
 
+    /**
+     * Gets the selected car model from the dropdown.
+     * @return The selected model as a string.
+     */
     public String getSelectedModel() {
         return (String) modelComboBox.getSelectedItem();
     }
 
-    public JLabel getSearchBgLabel() {
-        return searchBgLabel;
-    }
-
+    /**
+     * Gets the Make ComboBox instance.
+     * @return The JComboBox for selecting a car make.
+     */
     public JComboBox<String> getMakeComboBox() {
         return makeComboBox;
     }
 
-    public JComboBox<String> getModelComboBox() {
-        return modelComboBox;
-    }
-
+    /**
+     * Gets the search button instance.
+     * @return The JButton used for initiating the search.
+     */
     public JButton getSearchButton() {
         return searchButton;
     }

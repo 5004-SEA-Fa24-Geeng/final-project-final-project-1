@@ -7,6 +7,7 @@ import model.CarRecord;
 import model.Imodel;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class DetailsWin extends JFrame {
@@ -16,9 +17,9 @@ public class DetailsWin extends JFrame {
     private JButton backButton;
     private JButton showWishlistButton;
     private JLabel carImageLabel;
-    private JLabel carTitleLabel;
+    private JTextArea carTitleTextArea;
     private JLabel carPriceLabel;
-    private JButton wishlistButton;
+    private JButton addToWishlistButton;
 
     public DetailsWin(ResultsWin resultsWin, Imodel model, CarRecord carRecord) {
         this.resultsWin = resultsWin;
@@ -31,92 +32,155 @@ public class DetailsWin extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        // Main scrollable panel
-        JPanel contentPanel = new JPanel(new BorderLayout(15, 15));
+        // Content panel
+        JPanel contentPanel = new JPanel(new BorderLayout());
         contentPanel.setBackground(Color.WHITE);
 
-        // Placeholder panel for future features
-        JPanel placeholderPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        placeholderPanel.setPreferredSize(new Dimension(1100, 50));
-        placeholderPanel.setBackground(Color.WHITE);
+        // Header panel
+        JPanel headerPanel = new JPanel(new BorderLayout());
+        headerPanel.setPreferredSize(new Dimension(1100, 100));
+        headerPanel.setBackground(Color.WHITE);
+        headerPanel.setMinimumSize(new Dimension(1100, 100));
 
-        // Back button panel
+        // Back button
         backButton = new JButton("Back");
         backButton.setFont(new Font("Arial", Font.PLAIN, 14));
         backButton.addMouseListener(new DetailsBackMouseListener(resultsWin, this));
-        placeholderPanel.add(backButton);
 
-        // Show Wishlist button
+        // Back button panel
+        JPanel backButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        backButtonPanel.setBackground(Color.WHITE);
+        backButtonPanel.add(backButton);
+
+        // Show wishlist button
         showWishlistButton = new JButton("Show Wishlist");
         showWishlistButton.setFont(new Font("Arial", Font.PLAIN, 14));
         showWishlistButton.addMouseListener(new DetailsWishlistMouseListener(this, model));
-        placeholderPanel.add(showWishlistButton);
+
+        // Show wishlist button panel
+        JPanel showWishlistButtonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        showWishlistButtonPanel.setBackground(Color.WHITE);
+        showWishlistButtonPanel.add(showWishlistButton);
+
+        // Add backButtonPanel and showWishlistButtonPanel to headerPanel
+        headerPanel.add(backButtonPanel, BorderLayout.WEST);
+        headerPanel.add(showWishlistButtonPanel, BorderLayout.EAST);
+
+        // Main panel
+        JPanel mainPanel = new JPanel(new GridLayout(1, 2));
+        mainPanel.setPreferredSize(new Dimension(1100, 400));
+        mainPanel.setBackground(Color.WHITE);
 
         // Car image panel
-        JPanel imagePanel = new JPanel();
-        imagePanel.setBackground(Color.WHITE);
+        JPanel carImagePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        carImagePanel.setPreferredSize(new Dimension(480, 400));
+        carImagePanel.setBackground(Color.WHITE);
 
-        // Load the correct car image dynamically
+        // Load the car image dynamically
         ImageIcon originalIcon = new ImageIcon(carRecord.imageUrl());
         Image image = originalIcon.getImage().getScaledInstance(480, 350, Image.SCALE_SMOOTH);
         ImageIcon resizedIcon = new ImageIcon(image);
         carImageLabel = new JLabel(resizedIcon);
 
-        imagePanel.add(carImageLabel);
+        carImagePanel.add(carImageLabel);
 
         // Car info panel
-        JPanel carInfoPanel = new JPanel(new BorderLayout(15, 15));
+        JPanel carInfoPanel = new JPanel(new BorderLayout());
+        carInfoPanel.setPreferredSize(new Dimension(620, 400));
         carInfoPanel.setBackground(Color.WHITE);
-        carInfoPanel.setPreferredSize(new Dimension(560, 300));
+
+        // Car title and price panel
+        JPanel carTitlePricePanel = new JPanel(new BorderLayout());
+        carTitlePricePanel.setPreferredSize(new Dimension(620, 80));
+        carTitlePricePanel.setBackground(Color.WHITE);
 
         // Title
-        carTitleLabel = new JLabel(carRecord.getTitle());
-        carTitleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        carTitleLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        carTitleTextArea = new JTextArea(carRecord.getTitle());
+        carTitleTextArea.setFont(new Font("Arial", Font.BOLD, 24));
+        carTitleTextArea.setWrapStyleWord(true);
+        carTitleTextArea.setLineWrap(true);
+        carTitleTextArea.setEditable(false);
+        carTitleTextArea.setOpaque(false);
+        carTitleTextArea.setBorder(BorderFactory.createEmptyBorder());
+        carTitleTextArea.setBorder(new EmptyBorder(0, 0, 0, 40));
 
         // Price
         carPriceLabel = new JLabel("$" + carRecord.price());
         carPriceLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         carPriceLabel.setForeground(Color.BLUE);
         carPriceLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        carPriceLabel.setBorder(new EmptyBorder(0, 0, 0, 40));
 
-        // Wishlist button
-        wishlistButton = new JButton("Add to Wish List");
-        wishlistButton.setFont(new Font("Arial", Font.BOLD, 18));
-        wishlistButton.setPreferredSize(new Dimension(240, 50));
-        wishlistButton.addActionListener(new DetailsWishlistActionListener(this, model, carRecord));
+        // Add carTitleLabel and carPriceLabel to carTitlePricePanel
+        carTitlePricePanel.add(carTitleTextArea, BorderLayout.NORTH);
+        carTitlePricePanel.add(carPriceLabel, BorderLayout.SOUTH);
 
-        carInfoPanel.add(carTitleLabel, BorderLayout.WEST);
-        carInfoPanel.add(carPriceLabel, BorderLayout.EAST);
-        carInfoPanel.add(wishlistButton, BorderLayout.SOUTH);
+        // Car details panel
+        JPanel carDetailsPanel = new JPanel(new GridLayout(3, 2, 10, 10));
+        carDetailsPanel.setPreferredSize(new Dimension(620, 140));
+        carDetailsPanel.setBackground(Color.WHITE);
+        carDetailsPanel.setBorder(new EmptyBorder(20, 0, 40, 0));
 
-        // Main layout panel
-        JPanel mainLayoutPanel = new JPanel(new GridBagLayout());
-        mainLayoutPanel.setBackground(Color.WHITE);
+        // Car attributes
+        JLabel mileageLabel = new JLabel("Mileage: " + carRecord.mileage() + " miles");
+        mileageLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        JLabel zipLabel = new JLabel("Location: " + carRecord.zip());
+        zipLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        JLabel engineLabel = new JLabel("Engine: " + carRecord.engineInfo());
+        engineLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        JLabel bodyTypeLabel = new JLabel("Body Type: " + carRecord.bodyType());
+        bodyTypeLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        JLabel cylinderLabel = new JLabel("Cylinders: " + carRecord.numOfCylinders());
+        cylinderLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        JLabel driveTypeLabel = new JLabel("Drive Type: " + carRecord.driveType());
+        driveTypeLabel.setFont(new Font("Arial", Font.PLAIN, 18));
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(0, 0, 0, 0);
-        gbc.fill = GridBagConstraints.BOTH;
+        carDetailsPanel.add(mileageLabel);
+        carDetailsPanel.add(zipLabel);
+        carDetailsPanel.add(engineLabel);
+        carDetailsPanel.add(bodyTypeLabel);
+        carDetailsPanel.add(cylinderLabel);
+        carDetailsPanel.add(driveTypeLabel);
 
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 0.45;
-        gbc.weighty = 1.0;
-        mainLayoutPanel.add(imagePanel, gbc);
+        // Car add to wishlist panel
+        JPanel carAddToWishlistPanel = new JPanel(new BorderLayout());
+        carAddToWishlistPanel.setPreferredSize(new Dimension(620, 80));
+        carAddToWishlistPanel.setBackground(Color.GREEN);
 
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        gbc.weightx = 0.55;
-        gbc.weighty = 1.0;
-        mainLayoutPanel.add(carInfoPanel, gbc);
+        // Add to wishlist button panel
+        JPanel addToWishlistButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        addToWishlistButtonPanel.setBackground(Color.WHITE);
 
-        contentPanel.add(placeholderPanel, BorderLayout.NORTH);
-        contentPanel.add(mainLayoutPanel, BorderLayout.CENTER);
+        // Add to wishlist button
+        addToWishlistButton = new JButton("Add to Wish List");
+        addToWishlistButton.setFont(new Font("Arial", Font.BOLD, 18));
+        addToWishlistButton.setPreferredSize(new Dimension(240, 50));
+        addToWishlistButton.addActionListener(new DetailsWishlistActionListener(this, model, carRecord));
 
-        JScrollPane scrollPane = new JScrollPane(contentPanel);
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.getViewport().setBackground(Color.WHITE);
+        // Add addToWishlistButton to addToWishlistButtonPanel
+        addToWishlistButtonPanel.add(addToWishlistButton);
 
-        add(scrollPane);
+        // Add addToWishlistButtonPanel to carAddToWishlistPanel
+        carAddToWishlistPanel.add(addToWishlistButtonPanel, BorderLayout.CENTER);
+
+        // Add carTitlePricePanel, carDetailsPanel, and carAddToWishlistPanel to carInfoPanel
+        carInfoPanel.add(carTitlePricePanel, BorderLayout.NORTH);
+        carInfoPanel.add(carDetailsPanel, BorderLayout.CENTER);
+        carInfoPanel.add(carAddToWishlistPanel, BorderLayout.SOUTH);
+
+        // Add carImagePanel and carInfoPanel to mainPanel
+        mainPanel.add(carImagePanel);
+        mainPanel.add(carInfoPanel);
+
+        // Footer panel
+        JPanel footerPanel = new JPanel();
+        footerPanel.setPreferredSize(new Dimension(1100, 250));
+        footerPanel.setBackground(Color.WHITE);
+
+        contentPanel.add(headerPanel, BorderLayout.NORTH);
+        contentPanel.add(mainPanel, BorderLayout.CENTER);
+        contentPanel.add(footerPanel, BorderLayout.SOUTH);
+
+        add(contentPanel);
     }
 }

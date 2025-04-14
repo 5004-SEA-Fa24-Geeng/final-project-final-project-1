@@ -26,8 +26,6 @@ public class DetailsWishlistActionListener implements ActionListener {
 
         model.saveWishlist();
 
-//        System.out.println("Added to wish list");
-
         // Create pop-up dialog
         JDialog dialog = new JDialog(detailsWin, "Wishlist", false);
         dialog.setUndecorated(true);
@@ -54,7 +52,7 @@ public class DetailsWishlistActionListener implements ActionListener {
         dialog.setVisible(true);
 
         // Close dialog after some time
-        Timer timer = new Timer(1500, evt -> dialog.dispose());
+        Timer timer = new Timer(800, evt -> dialog.dispose());
         timer.setRepeats(false);
         timer.start();
     }

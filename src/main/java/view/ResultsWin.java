@@ -1,8 +1,6 @@
 package view;
 
-import controller.listener.ResultsBackMouseListener;
-import controller.listener.ResultsSelectMouseListener;
-import controller.listener.ResultsSortActionListener;
+import controller.listener.*;
 import model.CarRecord;
 import model.Imodel;
 
@@ -15,6 +13,12 @@ public class ResultsWin extends JFrame {
     private Imodel model;
     private JButton backButton;
     private JPanel gridPanel;
+    private JTextField minPriceField;
+    private JTextField maxPriceField;
+    private JTextField minYearField;
+    private JTextField maxYearField;
+    private JTextField minMileageField;
+    private JTextField maxMileageField;
 
     public ResultsWin(SearchWin searchWin, Imodel model, List<CarRecord> carRecords) {
         this.searchWin = searchWin;
@@ -31,6 +35,71 @@ public class ResultsWin extends JFrame {
         JPanel filterPanel = new JPanel();
         filterPanel.setPreferredSize(new Dimension(280, 750));
         filterPanel.setBackground(Color.WHITE);
+        filterPanel.setLayout(new BoxLayout(filterPanel, BoxLayout.Y_AXIS));
+
+        // Price filter components panel
+        JPanel priceFilterPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel priceLabel = new JLabel("Price: ");
+        minPriceField = new JTextField("0", 7);
+        JLabel toPriceLabel = new JLabel("to");
+        maxPriceField = new JTextField("50000", 7);
+        priceFilterPanel.add(priceLabel);
+        priceFilterPanel.add(minPriceField);
+        priceFilterPanel.add(toPriceLabel);
+        priceFilterPanel.add(maxPriceField);
+
+        // Year filter panel
+        JPanel yearFilterPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel yearLabel = new JLabel("Year: ");
+        minYearField = new JTextField("1900", 7);
+        JLabel toYearLabel = new JLabel("to");
+        maxYearField = new JTextField("2025", 7);
+        yearFilterPanel.add(yearLabel);
+        yearFilterPanel.add(minYearField);
+        yearFilterPanel.add(toYearLabel);
+        yearFilterPanel.add(maxYearField);
+
+        // Mileage filter panel
+        JPanel mileageFilterPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel mileageLabel = new JLabel("Mileage: ");
+        minMileageField = new JTextField("0", 7);
+        JLabel toMileageLabel = new JLabel("to");
+        maxMileageField = new JTextField("300000", 7);
+        mileageFilterPanel.add(mileageLabel);
+        mileageFilterPanel.add(minMileageField);
+        mileageFilterPanel.add(toMileageLabel);
+        mileageFilterPanel.add(maxMileageField);
+
+        // Button panel for filter and reset
+        JPanel filterButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+        JButton applyFilterButton = new JButton("filter");
+        JButton resetFilterButton = new JButton("reset");
+
+        applyFilterButton.addActionListener(
+                new ResultsFilterActionListener(
+                        minPriceField, maxPriceField, minYearField, maxYearField,
+                        minMileageField, maxMileageField, this, carRecords
+                )
+        );
+        resetFilterButton.addActionListener(
+                new ResultsResetActionListener(
+                        minPriceField, maxPriceField, minYearField, maxYearField,
+                        minMileageField, maxMileageField, this, carRecords
+                )
+        );
+
+        filterButtonPanel.add(applyFilterButton);
+        filterButtonPanel.add(resetFilterButton);
+
+        filterPanel.setLayout(new BoxLayout(filterPanel, BoxLayout.Y_AXIS));
+        filterPanel.add(priceFilterPanel);
+        filterPanel.add(Box.createVerticalStrut(10));
+        filterPanel.add(yearFilterPanel);
+        filterPanel.add(Box.createVerticalStrut(10));
+        filterPanel.add(mileageFilterPanel);
+        filterPanel.add(Box.createVerticalStrut(10));
+        filterPanel.add(filterButtonPanel);
 
         // Sorting bar panel
         JPanel sortBarPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -118,45 +187,61 @@ public class ResultsWin extends JFrame {
     public void updateGridPanel(List<CarRecord> sortedCarRecords) {
         gridPanel.removeAll();
 
-        for (CarRecord car : sortedCarRecords) {
-            JPanel carPanel = new JPanel(new BorderLayout());
-            carPanel.setBackground(new Color(240, 240, 240));
+        try {
+            int selectedMinPrice = Integer.parseInt(minPriceField.getText());
+            int selectedMaxPrice = Integer.parseInt(maxPriceField.getText());
 
-            JLabel carImageLabel;
-            try {
-                String imagePath = car.imageUrl();
-                ImageIcon imageIcon = new ImageIcon(imagePath);
-                Image image = imageIcon.getImage().getScaledInstance(320, 220, Image.SCALE_SMOOTH);
-                ImageIcon resizedIcon = new ImageIcon(image);
-                carImageLabel = new JLabel(resizedIcon);
-            } catch (Exception e) {
-                e.printStackTrace();
-                ImageIcon fallbackIcon = new ImageIcon("data/images/default.jpg");
-                Image fallbackImage = fallbackIcon.getImage().getScaledInstance(320, 220, Image.SCALE_SMOOTH);
-                ImageIcon resizedFallbackIcon = new ImageIcon(fallbackImage);
-                carImageLabel = new JLabel(resizedFallbackIcon);
+            if (selectedMinPrice > selectedMaxPrice) {
+                JOptionPane.showMessageDialog(this, "Min price cannot be greater than max price", "Invalid Price", JOptionPane.ERROR_MESSAGE);
+                return;
             }
 
-            JLabel carTitleLabel = new JLabel(car.getTitle(), JLabel.CENTER);
-            carTitleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+            for (CarRecord car : sortedCarRecords) {
+                if (car.price() >= selectedMinPrice && car.price() <= selectedMaxPrice) {
+                    JPanel carPanel = new JPanel(new BorderLayout());
+                    carPanel.setBackground(new Color(240, 240, 240));
 
-            JLabel carPriceLabel = new JLabel("$" + car.price(), JLabel.CENTER);
-            carPriceLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-            carPriceLabel.setForeground(Color.BLUE);
+                    JLabel carImageLabel;
+                    try {
+                        String imagePath = car.imageUrl();
+                        ImageIcon imageIcon = new ImageIcon(imagePath);
+                        Image image = imageIcon.getImage().getScaledInstance(320, 220, Image.SCALE_SMOOTH);
+                        ImageIcon resizedIcon = new ImageIcon(image);
+                        carImageLabel = new JLabel(resizedIcon);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        ImageIcon fallbackIcon = new ImageIcon("data/images/default.jpg");
+                        Image fallbackImage = fallbackIcon.getImage().getScaledInstance(320, 220, Image.SCALE_SMOOTH);
+                        ImageIcon resizedFallbackIcon = new ImageIcon(fallbackImage);
+                        carImageLabel = new JLabel(resizedFallbackIcon);
+                    }
 
-            // Reattach listeners
-            carImageLabel.addMouseListener(new ResultsSelectMouseListener(this, model, car));
-            carPanel.addMouseListener(new ResultsSelectMouseListener(this, model, car));
+                    JLabel carTitleLabel = new JLabel(car.getTitle(), JLabel.CENTER);
+                    carTitleLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
-            carPanel.add(carImageLabel, BorderLayout.CENTER);
-            carPanel.add(carTitleLabel, BorderLayout.NORTH);
-            carPanel.add(carPriceLabel, BorderLayout.SOUTH);
+                    JLabel carPriceLabel = new JLabel("$" + car.price(), JLabel.CENTER);
+                    carPriceLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+                    carPriceLabel.setForeground(Color.BLUE);
 
-            gridPanel.add(carPanel);
+                    // Reattach listeners
+                    carImageLabel.addMouseListener(new ResultsSelectMouseListener(this, model, car));
+                    carPanel.addMouseListener(new ResultsSelectMouseListener(this, model, car));
+
+                    carPanel.add(carImageLabel, BorderLayout.CENTER);
+                    carPanel.add(carTitleLabel, BorderLayout.NORTH);
+                    carPanel.add(carPriceLabel, BorderLayout.SOUTH);
+
+                    gridPanel.add(carPanel);
+                }
+            }
+            gridPanel.revalidate();
+            gridPanel.repaint();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(
+                    this, "Please enter valid numeric values for price",
+                    "Invalid Price", JOptionPane.ERROR_MESSAGE
+            );
         }
-
-        gridPanel.revalidate();
-        gridPanel.repaint();
     }
 
     public JButton getBackButton() {
