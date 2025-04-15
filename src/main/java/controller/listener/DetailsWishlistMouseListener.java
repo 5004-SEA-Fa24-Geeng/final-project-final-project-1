@@ -1,27 +1,22 @@
 package controller.listener;
 
+import controller.WishlistWinController;
 import model.Imodel;
 import view.DetailsWin;
-import view.WishlistWin;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class DetailsWishlistMouseListener implements MouseListener {
-    private DetailsWin detailsWin;
-    private Imodel model;
+    private WishlistWinController wishlistWinController;
 
     public DetailsWishlistMouseListener(DetailsWin detailsWin, Imodel model) {
-        this.detailsWin = detailsWin;
-        this.model = model;
+        this.wishlistWinController = new WishlistWinController(detailsWin, model);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        detailsWin.setVisible(false);
-
-        WishlistWin wishlistWin = new WishlistWin(detailsWin, model);
-        wishlistWin.setVisible(true);
+        wishlistWinController.showWishlist();
     }
 
     @Override

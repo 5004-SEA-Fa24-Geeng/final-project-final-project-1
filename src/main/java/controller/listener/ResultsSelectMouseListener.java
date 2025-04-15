@@ -1,5 +1,6 @@
 package controller.listener;
 
+import controller.DetailsWinController;
 import model.CarRecord;
 import model.Imodel;
 import view.DetailsWin;
@@ -9,22 +10,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class ResultsSelectMouseListener implements MouseListener {
-    private ResultsWin resultsWin;
-    private Imodel model;
-    private CarRecord carRecord;
+    private DetailsWinController detailsWinController;
 
     public ResultsSelectMouseListener(ResultsWin resultsWin, Imodel model, CarRecord carRecord) {
-        this.resultsWin = resultsWin;
-        this.model = model;
-        this.carRecord = carRecord;
+        this.detailsWinController = new DetailsWinController(resultsWin, model, carRecord);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        resultsWin.setVisible(false);
-
-        DetailsWin detailsWin = new DetailsWin(resultsWin, model, carRecord);
-        detailsWin.setVisible(true);
+        detailsWinController.showDetails();
     }
 
     @Override

@@ -36,6 +36,28 @@ public class DetailsWin extends JFrame {
         JPanel contentPanel = new JPanel(new BorderLayout());
         contentPanel.setBackground(Color.WHITE);
 
+        // Main panel
+        JPanel mainPanel = new JPanel(new GridLayout(1, 2));
+        mainPanel.setPreferredSize(new Dimension(1100, 400));
+        mainPanel.setBackground(Color.WHITE);
+
+        // Add carImagePanel and carInfoPanel to mainPanel
+        mainPanel.add(createCarImagePanel());
+        mainPanel.add(createCarInfoPanel());
+
+        // Footer panel
+        JPanel footerPanel = new JPanel();
+        footerPanel.setPreferredSize(new Dimension(1100, 250));
+        footerPanel.setBackground(Color.WHITE);
+
+        contentPanel.add(createHeaderPanel(), BorderLayout.NORTH);
+        contentPanel.add(mainPanel, BorderLayout.CENTER);
+        contentPanel.add(footerPanel, BorderLayout.SOUTH);
+
+        add(contentPanel);
+    }
+
+    private JPanel createHeaderPanel() {
         // Header panel
         JPanel headerPanel = new JPanel(new BorderLayout());
         headerPanel.setPreferredSize(new Dimension(1100, 100));
@@ -66,11 +88,10 @@ public class DetailsWin extends JFrame {
         headerPanel.add(backButtonPanel, BorderLayout.WEST);
         headerPanel.add(showWishlistButtonPanel, BorderLayout.EAST);
 
-        // Main panel
-        JPanel mainPanel = new JPanel(new GridLayout(1, 2));
-        mainPanel.setPreferredSize(new Dimension(1100, 400));
-        mainPanel.setBackground(Color.WHITE);
+        return headerPanel;
+    }
 
+    private JPanel createCarImagePanel() {
         // Car image panel
         JPanel carImagePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
         carImagePanel.setPreferredSize(new Dimension(480, 400));
@@ -84,6 +105,10 @@ public class DetailsWin extends JFrame {
 
         carImagePanel.add(carImageLabel);
 
+        return carImagePanel;
+    }
+
+    private JPanel createCarInfoPanel() {
         // Car info panel
         JPanel carInfoPanel = new JPanel(new BorderLayout());
         carInfoPanel.setPreferredSize(new Dimension(620, 400));
@@ -168,19 +193,6 @@ public class DetailsWin extends JFrame {
         carInfoPanel.add(carDetailsPanel, BorderLayout.CENTER);
         carInfoPanel.add(carAddToWishlistPanel, BorderLayout.SOUTH);
 
-        // Add carImagePanel and carInfoPanel to mainPanel
-        mainPanel.add(carImagePanel);
-        mainPanel.add(carInfoPanel);
-
-        // Footer panel
-        JPanel footerPanel = new JPanel();
-        footerPanel.setPreferredSize(new Dimension(1100, 250));
-        footerPanel.setBackground(Color.WHITE);
-
-        contentPanel.add(headerPanel, BorderLayout.NORTH);
-        contentPanel.add(mainPanel, BorderLayout.CENTER);
-        contentPanel.add(footerPanel, BorderLayout.SOUTH);
-
-        add(contentPanel);
+        return carInfoPanel;
     }
 }

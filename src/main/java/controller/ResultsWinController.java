@@ -12,19 +12,26 @@ import java.util.List;
  */
 public class ResultsWinController {
 
-    /** Reference to the search window. */
+    /**
+     * Reference to the search window.
+     */
     private SearchWin searchWin;
 
-    /** Reference to the data model storing car records. */
+    /**
+     * Reference to the data model storing car records.
+     */
     private Imodel model;
 
-    /** List of car search results. */
+    /**
+     * List of car search results.
+     */
     private List<CarRecord> searchResults;
 
     /**
      * Constructs the controller.
-     * @param searchWin The search window to be hidden when results are displayed.
-     * @param model The data model containing car records.
+     *
+     * @param searchWin     The search window to be hidden when results are displayed.
+     * @param model         The data model containing car records.
      * @param searchResults The list of matching car records from the search.
      */
     public ResultsWinController(SearchWin searchWin, Imodel model, List<CarRecord> searchResults) {

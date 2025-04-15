@@ -1,5 +1,6 @@
 package controller.listener;
 
+import controller.WishlistBackController;
 import view.DetailsWin;
 import view.WishlistWin;
 
@@ -7,18 +8,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class WishlistBackMouseListener implements MouseListener {
-    private WishlistWin wishlistWin;
-    private DetailsWin detailsWin;
+    private WishlistBackController wishlistBackController;
 
     public WishlistBackMouseListener(WishlistWin wishlistWin, DetailsWin detailsWin) {
-        this.wishlistWin = wishlistWin;
-        this.detailsWin = detailsWin;
+        this.wishlistBackController = new WishlistBackController(wishlistWin, detailsWin);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        wishlistWin.setVisible(false);
-        detailsWin.setVisible(true);
+        wishlistBackController.goBackToDetails();
     }
 
     @Override

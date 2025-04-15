@@ -1,5 +1,6 @@
 package controller.listener;
 
+import controller.DetailsBackController;
 import view.DetailsWin;
 import view.ResultsWin;
 
@@ -7,18 +8,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class DetailsBackMouseListener implements MouseListener {
-    private ResultsWin resultsWin;
-    private DetailsWin detailsWin;
+    private DetailsBackController detailsBackController;
 
     public DetailsBackMouseListener(ResultsWin resultsWin, DetailsWin detailsWin) {
-        this.resultsWin = resultsWin;
-        this.detailsWin = detailsWin;
+        this.detailsBackController = new DetailsBackController(resultsWin, detailsWin);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        resultsWin.setVisible(true);
-        detailsWin.setVisible(false);
+        detailsBackController.goBackToResults();
     }
 
     @Override
