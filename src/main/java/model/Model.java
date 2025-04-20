@@ -1,15 +1,11 @@
 package model;
 
-import com.opencsv.CSVReader;
-
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
-
 
 public class Model implements Imodel {
     /**
@@ -25,12 +21,14 @@ public class Model implements Imodel {
      */
     private Set<CarRecord> wishList = new HashSet<>();
 
+    /**
+     * Constructs the model.
+     */
     public Model() {
         loadData();
         loadWishList();
         resetWorkingList();
     }
-
 
     /**
      * load data from path
@@ -42,8 +40,6 @@ public class Model implements Imodel {
 
             while ((line = reader.readLine()) != null) {
                 String[] record = line.split(",", -1);
-
-//                System.out.println("record: " + Arrays.toString(record));
 
                 if (record.length != 13) {
                     continue;
@@ -63,8 +59,6 @@ public class Model implements Imodel {
                     int numOfCylinders = record[11].isEmpty() ? 0: Integer.parseInt(record[11]);
                     String driveType = record[12].isEmpty() ? "Unknown Drive Type" : record[12];
 
-//                    String imageUrl = FetchImage.fetchUrl(make, model, year);
-
                     // Use static images
                     String makeFirstWord = make.split(" ")[0];
                     String modelFirstWord = model.split(" ")[0];
@@ -78,8 +72,6 @@ public class Model implements Imodel {
                     e.printStackTrace();
                 }
             }
-
-//            System.out.println("allCars: " + allCars.size());
 
             resetWorkingList();
         } catch (IOException e){
@@ -124,8 +116,6 @@ public class Model implements Imodel {
                     e.printStackTrace();
                 }
             }
-
-//            System.out.println("wishList: " + wishList.size());
 
             resetWorkingList();
         } catch (IOException e){
@@ -259,7 +249,6 @@ public class Model implements Imodel {
                     .filter(c -> c.price() <= price)
                     .collect(Collectors.toList());
         }
-
     }
 
     /**
@@ -311,8 +300,6 @@ public class Model implements Imodel {
                     .filter(c -> c.year() <= year)
                     .collect(Collectors.toList());
         }
-
-
     }
 
     /**
