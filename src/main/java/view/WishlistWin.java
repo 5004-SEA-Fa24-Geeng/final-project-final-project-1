@@ -11,13 +11,32 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Set;
 
+/**
+ * Represents the wishlist window, displaying saved cars.
+ * Allows users to manage and remove wishlist items.
+ */
 public class WishlistWin extends JFrame {
+
+    /** Reference to the details window. */
     private DetailsWin detailsWin;
+
+    /** Reference to the data model storing wishlist items. */
     private Imodel model;
+
+    /** Back button for navigating to the previous window. */
     private JButton backButton;
+
+    /** Panel containing the list of wishlist items. */
     private JPanel listPanel;
+
+    /** Controller for managing wishlist content. */
     private WishlistContentController wishlistContentController;
 
+    /**
+     * Constructs the wishlist window and initializes UI components.
+     * @param detailsWin The details window.
+     * @param model The data model handling wishlist operations.
+     */
     public WishlistWin(DetailsWin detailsWin, Imodel model) {
         this.detailsWin = detailsWin;
         this.model = model;
@@ -47,6 +66,10 @@ public class WishlistWin extends JFrame {
         add(contentPanel);
     }
 
+    /**
+     * Updates the wishlist panel with current items.
+     * @param wishlist The set of saved car records.
+     */
     public void updateWishlist(Set<CarRecord> wishlist) {
         listPanel.removeAll();
 
@@ -58,6 +81,10 @@ public class WishlistWin extends JFrame {
         listPanel.repaint();
     }
 
+    /**
+     * Creates the header panel with navigation and removal controls.
+     * @return The header panel component.
+     */
     private JPanel createHeaderPanel() {
         // Header panel
         JPanel headerPanel = new JPanel(new BorderLayout());
@@ -92,6 +119,11 @@ public class WishlistWin extends JFrame {
         return headerPanel;
     }
 
+    /**
+     * Creates a panel displaying individual wishlist items.
+     * @param car The car record to display.
+     * @return The panel containing car details.
+     */
     private JPanel createCarPanel(CarRecord car) {
         JPanel rowPanel = new JPanel(new BorderLayout());
         rowPanel.setBackground(Color.WHITE);
@@ -125,6 +157,11 @@ public class WishlistWin extends JFrame {
         return rowPanel;
     }
 
+    /**
+     * Loads and displays the car image, using a fallback if unavailable.
+     * @param car The car record containing image details.
+     * @return The label displaying the car image.
+     */
     private JLabel createCarImageLabel(CarRecord car) {
         try {
             // Get the imageUrl
@@ -141,5 +178,9 @@ public class WishlistWin extends JFrame {
             Image fallbackImage = fallbackIcon.getImage().getScaledInstance(140, 100, Image.SCALE_SMOOTH);
             return new JLabel(new ImageIcon(fallbackImage));
         }
+    }
+
+    public JPanel getListPanel() {
+        return listPanel;
     }
 }

@@ -1,5 +1,6 @@
 package controller;
 
+import utility.Data;
 import utility.MakeAndModelData;
 import view.SearchWin;
 
@@ -23,7 +24,7 @@ public class MakeModelController {
      */
     public MakeModelController(SearchWin searchWin) {
         this.searchWin = searchWin;
-        this.makeModelData = MakeAndModelData.getMakeModelMap();
+        this.makeModelData = MakeAndModelData.getMakeModelMap(Data.MAKE_MODEL_CSV_PATH);
 
         // Fill make dropdown with available options
         populateMakeDropdown();
@@ -54,8 +55,9 @@ public class MakeModelController {
     /**
      * Updates the model dropdown based on the selected car make.
      */
-    private void updateModelList() {
+    public void updateModelList() {
         String selectedMake = searchWin.getSelectedMake();
+
         List<String> models = makeModelData.getOrDefault(selectedMake, List.of());
 
         searchWin.updateModelDropdown(models);

@@ -10,17 +10,45 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+/**
+ * Represents the detailed view of a selected car listing.
+ * Displays car images, details, and provides wishlist functionality.
+ */
 public class DetailsWin extends JFrame {
+
+    /** Reference to the results window. */
     private ResultsWin resultsWin;
+
+    /** Reference to the data model storing car records. */
     private Imodel model;
+
+    /** Car record being displayed. */
     private CarRecord carRecord;
+
+    /** Button for returning to the results window. */
     private JButton backButton;
+
+    /** Button for displaying wishlist items. */
     private JButton showWishlistButton;
+
+    /** Label for displaying the car image. */
     private JLabel carImageLabel;
+
+    /** Text area for displaying the car title. */
     private JTextArea carTitleTextArea;
+
+    /** Label for displaying the car price. */
     private JLabel carPriceLabel;
+
+    /** Button for adding the car to the wishlist. */
     private JButton addToWishlistButton;
 
+    /**
+     * Constructs the details window and initializes UI components.
+     * @param resultsWin The results window to navigate back to.
+     * @param model The data model containing car records.
+     * @param carRecord The car record to be displayed in detail.
+     */
     public DetailsWin(ResultsWin resultsWin, Imodel model, CarRecord carRecord) {
         this.resultsWin = resultsWin;
         this.model = model;
@@ -57,8 +85,11 @@ public class DetailsWin extends JFrame {
         add(contentPanel);
     }
 
+    /**
+     * Creates the header panel with navigation and wishlist controls.
+     * @return The header panel component.
+     */
     private JPanel createHeaderPanel() {
-        // Header panel
         JPanel headerPanel = new JPanel(new BorderLayout());
         headerPanel.setPreferredSize(new Dimension(1100, 100));
         headerPanel.setBackground(Color.WHITE);
@@ -91,6 +122,10 @@ public class DetailsWin extends JFrame {
         return headerPanel;
     }
 
+    /**
+     * Creates the panel displaying the car image.
+     * @return The car image panel component.
+     */
     private JPanel createCarImagePanel() {
         // Car image panel
         JPanel carImagePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -108,8 +143,11 @@ public class DetailsWin extends JFrame {
         return carImagePanel;
     }
 
+    /**
+     * Creates the panel displaying car details and wishlist options.
+     * @return The car details panel component.
+     */
     private JPanel createCarInfoPanel() {
-        // Car info panel
         JPanel carInfoPanel = new JPanel(new BorderLayout());
         carInfoPanel.setPreferredSize(new Dimension(620, 400));
         carInfoPanel.setBackground(Color.WHITE);
@@ -194,5 +232,21 @@ public class DetailsWin extends JFrame {
         carInfoPanel.add(carAddToWishlistPanel, BorderLayout.SOUTH);
 
         return carInfoPanel;
+    }
+
+    /**
+     * Retrieves the text area displaying the car's title.
+     * @return A {@link JTextArea} containing the car's title.
+     */
+    public JTextArea getCarTitleTextArea() {
+        return carTitleTextArea;
+    }
+
+    /**
+     * Retrieves the label displaying the car's price.
+     * @return A {@link JLabel} containing the car's price.
+     */
+    public JLabel getCarPriceLabel() {
+        return carPriceLabel;
     }
 }

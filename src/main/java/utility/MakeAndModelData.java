@@ -16,10 +16,10 @@ public class MakeAndModelData {
      * Reads a CSV file and returns a mapping of car makes to their respective models.
      * @return A HashMap where keys are car makes and values are lists of models.
      */
-    public static HashMap<String, List<String>> getMakeModelMap() {
+    public static HashMap<String, List<String>> getMakeModelMap(String filePath) {
         HashMap<String, List<String>> makeModelMap = new HashMap<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader("data/make_and_model.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
 
             // Skip the first line (header)

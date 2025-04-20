@@ -1,9 +1,1 @@
 id,price,zip,mileage,make,model,year,trim,engineInfo,bodyType,numOfCylinders,driveType
-76801,24600.0,59101,50,Chevrolet,Nova,1968,Pro Street 540BBC,540 BBC,Coupe,8,RWD
-85945,3500.0,46319,60200,Dodge,Power Wagon,1977,M880/W200,5.2 Liter 318 V8,Standard Cab Pickup,8,4WD
-78273,1730.0,07840,93100,Chevrolet,Aveo,2009,Unknown Trim,Unknown Engine,Unknown Body Type,4,FWD
-44319,15700.0,16001,81976,Dodge,Sprinter,2006,3500 CARGO VAN,2.7L Turbocharged Diesel,Cargo Van,5,RWD
-94091,750.0,10541,184923,Lexus,ES,1998,Unknown Trim,Unknown Engine,Unknown Body Type,6,FWD
-136841,3550.0,078**,87201,Subaru,Impreza,2008,Unknown Trim,Unknown Engine,Sedan,4,AWD
-9704,17000.0,72223,0,Dodge,Other,1936,Unknown Trim,Unknown Engine,Unknown Body Type,0,Unknown Drive Type
-46260,5500.0,86314,10000,Volkswagen,Beetle - Classic,1973,Unknown Trim,1600 Dual Port,Coupe,4,RWD

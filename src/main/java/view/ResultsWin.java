@@ -189,7 +189,7 @@ public class ResultsWin extends JFrame {
      * @param carRecords List of car records to be displayed.
      * @return JScrollPane containing the grid panel.
      */
-    private JScrollPane createGridPanel(List<CarRecord> carRecords) {
+    public JScrollPane createGridPanel(List<CarRecord> carRecords) {
         gridPanel = new JPanel(new GridLayout(0, 2, 20, 20));
         gridPanel.setBackground(Color.WHITE);
 
@@ -269,5 +269,13 @@ public class ResultsWin extends JFrame {
      */
     public JButton getBackButton() {
         return backButton;
+    }
+
+    /**
+     * Gets the grid panel displaying car listings.
+     * @return JPanel containing the visual representation of car records in a grid format.
+     */
+    public JPanel getGridPanel() {
+        return gridPanel;
     }
 }

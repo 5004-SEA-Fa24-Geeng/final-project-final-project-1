@@ -85,12 +85,15 @@ public class SearchWin extends JFrame {
      * @param models The list of car models to display.
      */
     public void updateModelDropdown(List<String> models) {
+        System.out.println("test1");
         modelComboBox.removeAllItems();
         modelComboBox.addItem("Select"); // Default option
 
         for (String model : models) {
             modelComboBox.addItem(model);
         }
+
+        modelComboBox.setSelectedItem("Select");
 
         modelComboBox.setEnabled(!models.isEmpty()); // Enable dropdown if models exist
     }
@@ -117,6 +120,14 @@ public class SearchWin extends JFrame {
      */
     public JComboBox<String> getMakeComboBox() {
         return makeComboBox;
+    }
+
+    /**
+     * Gets the Model ComboBox instance.
+     * @return The JComboBox for selecting a car model.
+     */
+    public JComboBox<String> getModelComboBox() {
+        return modelComboBox;
     }
 
     /**

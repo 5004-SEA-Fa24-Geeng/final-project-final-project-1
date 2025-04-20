@@ -7,52 +7,46 @@ import view.DetailsWin;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Manages adding a car to the wishlist and displaying a confirmation dialog.
+ */
 public class DetailsAddToWishlistController {
 
+    /** Reference to the details window. */
     private DetailsWin detailsWin;
 
+    /** Reference to the data model handling car records. */
     private Imodel model;
 
+    /** The car record being added to the wishlist. */
     private CarRecord carRecord;
 
+    /**
+     * Constructs the wishlist controller with necessary dependencies.
+     * @param detailsWin The details window displaying the car.
+     * @param model The data model handling wishlist operations.
+     * @param carRecord The car record to be added to the wishlist.
+     */
     public DetailsAddToWishlistController(DetailsWin detailsWin, Imodel model, CarRecord carRecord) {
         this.detailsWin = detailsWin;
         this.model = model;
         this.carRecord = carRecord;
     }
 
+    /**
+     * Adds the selected car to the wishlist and displays a pop-up confirmation.
+     */
     public void addToWishlist() {
         model.addToWishlist(carRecord);
         model.saveWishlist();
 
-        // Create pop-up dialog
-        JDialog dialog = new JDialog(detailsWin, "Wishlist", false);
-        dialog.setUndecorated(true);
-        dialog.setSize(380, 140);
-        dialog.setLocationRelativeTo(detailsWin);
-
-        JPanel panel = new JPanel(new GridBagLayout());
-        panel.setBackground(Color.WHITE);
-
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 1;
-        gbc.weighty = 1;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.fill = GridBagConstraints.BOTH;
-
-        JLabel messageLabel = new JLabel("added to wish list!");
-        messageLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-        messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
-        panel.add(messageLabel, gbc);
-        dialog.add(panel);
-        dialog.setVisible(true);
-
-        // Close dialog after some time
-        Timer timer = new Timer(800, evt -> dialog.dispose());
-        timer.setRepeats(false);
-        timer.start();
+        SwingUtilities.invokeLater(() -> {
+            JOptionPane.showMessageDialog(
+                    detailsWin,
+                    "Added to Wishlist!",
+                    "Wishlist Confirmation",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+        });
     }
 }
