@@ -9,21 +9,39 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
-public class FetchImage {
+public final class FetchImage {
+
+    private FetchImage() { }
 
     /**
-     * a wrapper class
+     * a wrapper class.
      */
     @JacksonXmlRootElement(localName = "string")
     public static class ImageWrapper {
+        /**
+         * .
+         */
         @JacksonXmlText
+
         private String value;
-        public String getValue(){
+
+        /**
+         * get val.
+         * @return val
+         */
+        public String getValue() {
             return value;
         }
 
     }
 
+    /**
+     * fetch img.
+     * @param make make
+     * @param model model
+     * @param year year
+     * @return url
+     */
     public static String fetchUrl(String make, String model, int year) {
         try {
             String searchTerm = URLEncoder.encode(make + " " + model + " " + year, StandardCharsets.UTF_8);
@@ -34,17 +52,10 @@ public class FetchImage {
             XmlMapper xmlMapper = new XmlMapper();
             ImageWrapper result = xmlMapper.readValue(input, ImageWrapper.class);
             return result.getValue();
-        } catch (Exception e){
+        } catch (Exception e) {
             return "";
         }
     }
 
-    public static void main(String[] args) {
-        String make = "Honda";
-        String model = "Civic";
-        int year = 2000;
 
-        String imageUrl = FetchImage.fetchUrl(make, model,year);
-        System.out.println("Fetched Image URL: " + imageUrl);
-    }
 }

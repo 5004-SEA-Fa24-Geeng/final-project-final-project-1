@@ -23,8 +23,12 @@ public class WishlistRemoveAllActionListener implements ActionListener {
      * @param model The data model managing wishlist items.
      * @param wishlistContentController The controller handling wishlist refresh operations.
      */
-    public WishlistRemoveAllActionListener(WishlistWin wishlistWin, Imodel model, WishlistContentController wishlistContentController) {
-        this.wishlistRemoveAllController = new WishlistRemoveAllController(wishlistWin, model, wishlistContentController);
+    public WishlistRemoveAllActionListener(WishlistWin wishlistWin,
+                                           Imodel model,
+                                           WishlistContentController wishlistContentController) {
+        this.wishlistRemoveAllController = new WishlistRemoveAllController(wishlistWin,
+                model,
+                wishlistContentController);
     }
 
     /**

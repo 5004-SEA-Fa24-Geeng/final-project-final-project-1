@@ -17,7 +17,7 @@ public class Model implements Imodel {
      */
     private List<CarRecord> workingList = new ArrayList<>();
     /**
-     * wishlist
+     * wishlist.
      */
     private Set<CarRecord> wishList = new HashSet<>();
 
@@ -31,10 +31,10 @@ public class Model implements Imodel {
     }
 
     /**
-     * load data from path
+     * load data from path.
      */
     private void loadData() {
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get(dataPath))) {
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(DATAPATH))) {
             reader.readLine();
             String line;
 
@@ -56,7 +56,7 @@ public class Model implements Imodel {
                     String trim = record[8].isEmpty() ? "Unknown Trim" : record[8];
                     String engineInfo = record[9].isEmpty() ? "Unknown Engine" : record[9];
                     String bodyType = record[10].isEmpty() ? "Unknown Body Type" : record[10];
-                    int numOfCylinders = record[11].isEmpty() ? 0: Integer.parseInt(record[11]);
+                    int numOfCylinders = record[11].isEmpty() ? 0 : Integer.parseInt(record[11]);
                     String driveType = record[12].isEmpty() ? "Unknown Drive Type" : record[12];
 
                     // Use static images
@@ -74,14 +74,14 @@ public class Model implements Imodel {
             }
 
             resetWorkingList();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error reading data from file");
         }
     }
 
     private void loadWishList() {
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get(wishListPath))) {
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(WISHLISTPATH))) {
             reader.readLine();
             String line;
 
@@ -103,7 +103,7 @@ public class Model implements Imodel {
                     String trim = record[7].isEmpty() ? "Unknown Trim" : record[7];
                     String engineInfo = record[8].isEmpty() ? "Unknown Engine" : record[8];
                     String bodyType = record[9].isEmpty() ? "Unknown Body Type" : record[9];
-                    int numOfCylinders = record[10].isEmpty() ? 0: Integer.parseInt(record[10]);
+                    int numOfCylinders = record[10].isEmpty() ? 0 : Integer.parseInt(record[10]);
                     String driveType = record[11].isEmpty() ? "Unknown Drive Type" : record[11];
 
                     String imageUrl = FetchImage.fetchUrl(make, model, year);
@@ -118,7 +118,7 @@ public class Model implements Imodel {
             }
 
             resetWorkingList();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error reading data from file");
         }
@@ -272,7 +272,7 @@ public class Model implements Imodel {
     }
 
     /**
-     * filter by trim, will only keep trim() == this.trim
+     * filter by trim, will only keep trim() == this.trim.
      *
      * @param trim trim
      */
@@ -284,7 +284,7 @@ public class Model implements Imodel {
     }
 
     /**
-     * filter by year
+     * filter by year.
      *
      * @param year       year
      * @param largerThan larger than or smaller than amount
@@ -303,7 +303,7 @@ public class Model implements Imodel {
     }
 
     /**
-     * filter by drive type
+     * filter by drive type.
      *
      * @param driveType drive type
      */
@@ -315,7 +315,7 @@ public class Model implements Imodel {
     }
 
     /**
-     * filter by dody type
+     * filter by dody type.
      *
      * @param bodyType body type
      */
@@ -327,7 +327,7 @@ public class Model implements Imodel {
     }
 
     /**
-     * filter by num of cylinder
+     * filter by num of cylinder.
      *
      * @param numOfCylinders num of cylinder
      */
@@ -340,7 +340,7 @@ public class Model implements Imodel {
     }
 
     /**
-     * sort by year
+     * sort by year.
      *
      * @param descending order
      */
@@ -355,7 +355,7 @@ public class Model implements Imodel {
     }
 
     /**
-     * sort by mileage
+     * sort by mileage.
      *
      * @param descending order
      */
@@ -369,7 +369,7 @@ public class Model implements Imodel {
     }
 
     /**
-     * sort by price
+     * sort by price.
      *
      * @param descending order
      */
@@ -425,19 +425,19 @@ public class Model implements Imodel {
      */
     @Override
     public void saveWishlist() {
-        Formatter.write(wishList, "csv", wishListPath);
+        Formatter.write(wishList, "csv", WISHLISTPATH);
     }
     /**
-     * export wishlist based on format
+     * export wishlist based on format.
      * @param format xml json or csv
      */
     @Override
     public void exportWishlist(String format) {
         String path;
         switch (format) {
-            case "csv" -> path = csvPath;
-            case "json" -> path = jsonPath;
-            case "xml" -> path = xmlPath;
+            case "csv" -> path = CSVPATH;
+            case "json" -> path = JSONPATH;
+            case "xml" -> path = XMLPATH;
             default -> {
                 System.out.println("Unsupported format: " + format);
                 return;

@@ -1,15 +1,30 @@
 package model;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Set;
 
 public interface Imodel {
-    String dataPath = "data/used_car_sales_hundred.csv";
-    String wishListPath = "data/wishlist.csv";
-    String csvPath = "data/output/outputWishList.csv";
-    String xmlPath = "data/output/outputWishList.xml";
-    String jsonPath = "data/output/outputWishList.json";
+    /**
+     * data path.
+     */
+    String DATAPATH = "data/used_car_sales_hundred.csv";
+    /**
+     * wishListPath.
+     */
+    String WISHLISTPATH = "data/wishlist.csv";
+    /**
+     * csvPath.
+     */
+    String CSVPATH = "data/output/outputWishList.csv";
+    /**
+     * xmlPath.
+     */
+    String XMLPATH = "data/output/outputWishList.xml";
+    /**
+     * jsonPath.
+     */
+    String JSONPATH = "data/output/outputWishList.json";
 
     /**
      * return all the makes.
@@ -30,7 +45,7 @@ public interface Imodel {
      * return all cars.
      * @return list of all cars
      */
-    public List<CarRecord> getAllCars();
+    List<CarRecord> getAllCars();
 
     /**
      * search a car by entering make.
@@ -99,7 +114,7 @@ public interface Imodel {
     void filterByTrim(String trim);
 
     /**
-     * filter by year
+     * filter by year.
      *
      * @param year       year
      * @param largerThan larger than or smaller than amount
@@ -107,21 +122,21 @@ public interface Imodel {
     void filterByYear(int year, boolean largerThan);
 
     /**
-     * filter by drive type
+     * filter by drive type.
      *
      * @param driveType drive type
      */
     void filterByDriveType(String driveType);
 
     /**
-     * filter by dody type
+     * filter by dody type.
      *
      * @param bodyType body type
      */
     void filterByBodyType(String bodyType);
 
     /**
-     * filter by num of cylinder
+     * filter by num of cylinder.
      *
      * @param numOfCylinder num of cylinder
      */
@@ -129,21 +144,21 @@ public interface Imodel {
 
 
     /**
-     * sort by year
+     * sort by year.
      *
      * @param descending order
      */
     void sortByYear(boolean descending);
 
     /**
-     * sort by mileage
+     * sort by mileage.
      *
      * @param descending order
      */
     void sortByMileage(boolean descending);
 
     /**
-     * sort by price
+     * sort by price.
      *
      * @param descending order
      */
@@ -181,7 +196,7 @@ public interface Imodel {
     void saveWishlist();
 
     /**
-     * export wishlist based on format
+     * export wishlist based on format.
      *
      * @param format xml json or csv
      */

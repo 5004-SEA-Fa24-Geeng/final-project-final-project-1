@@ -36,8 +36,9 @@ public class ResultsWin extends JFrame {
     /** Text fields for filtering based on mileage range. */
     private JTextField minMileageField, maxMileageField;
 
+    /** resultsFilterController. */
     private ResultsFilterController resultsFilterController;
-
+    /** resultsSortController. */
     private ResultsSortController resultsSortController;
 
     /**

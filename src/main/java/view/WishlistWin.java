@@ -180,6 +180,10 @@ public class WishlistWin extends JFrame {
         }
     }
 
+    /**
+     * getter for list panel.
+     * @return list panel
+     */
     public JPanel getListPanel() {
         return listPanel;
     }

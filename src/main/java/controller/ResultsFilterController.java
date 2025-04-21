@@ -31,7 +31,9 @@ public class ResultsFilterController {
      * @param resultsSortController The sorting controller handling sorting behavior.
      * @param originalCarRecords The full list of car records before filtering.
      */
-    public ResultsFilterController(ResultsWin resultsWin, ResultsSortController resultsSortController, List<CarRecord> originalCarRecords) {
+    public ResultsFilterController(ResultsWin resultsWin,
+                                   ResultsSortController resultsSortController,
+                                   List<CarRecord> originalCarRecords) {
         this.resultsWin = resultsWin;
         this.resultsSortController = resultsSortController;
         this.originalCarRecords = originalCarRecords;
@@ -59,8 +61,9 @@ public class ResultsFilterController {
             int selectedMaxMileage = Integer.parseInt(maxMileageField.getText());
 
             // Validate filter values
-            if (selectedMinPrice > selectedMaxPrice || selectedMinYear > selectedMaxYear ||
-                    selectedMinMileage > selectedMaxMileage) {
+
+            if (selectedMinPrice > selectedMaxPrice || selectedMinYear > selectedMaxYear
+                    || selectedMinMileage > selectedMaxMileage) {
                 JOptionPane.showMessageDialog(
                         resultsWin, "Invalid filter values",
                         "Filter Error", JOptionPane.ERROR_MESSAGE
@@ -111,6 +114,10 @@ public class ResultsFilterController {
         resultsWin.updateGridPanel(originalCarRecords);
     }
 
+    /**
+     * get original car records.
+     * @return originalCarRecords
+     */
     public List<CarRecord> getOriginalCarRecords() {
         return originalCarRecords;
     }

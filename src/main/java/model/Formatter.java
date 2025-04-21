@@ -11,26 +11,43 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 
-public class Formatter {
+public final class Formatter {
 
-
+private Formatter() { }
 
     public static class CarRecordListWrapper {
-
+        /**
+         * .
+         */
         @JacksonXmlElementWrapper(localName = "wishlist")
         @JacksonXmlProperty(localName = "CarRecord")
         private Set<CarRecord> wishlist;
 
-        public CarRecordListWrapper() {}
+        /**
+         * wishlist wrapper.
+         */
+        public CarRecordListWrapper() { }
 
+        /**
+         * CarRecordListWrapper.
+         * @param wishlist wishlist.
+         */
         public CarRecordListWrapper(Set<CarRecord> wishlist) {
             this.wishlist = wishlist;
         }
 
+        /**
+         * getter for wishlist.
+         * @return wishlist
+         */
         public Set<CarRecord> getWishlist() {
             return wishlist;
         }
 
+        /**
+         * setter for wishlist.
+         * @param wishlist wishlist
+         */
         public void setWishlist(Set<CarRecord> wishlist) {
             this.wishlist = wishlist;
         }
@@ -38,6 +55,8 @@ public class Formatter {
 
     /**
      * Writes the wishlist to a CSV file.
+     * @param wishlist wishlist
+     * @param csvPath path
      */
     public static void writeToCSV(Set<CarRecord> wishlist, String csvPath) {
         try {
@@ -69,6 +88,8 @@ public class Formatter {
 
     /**
      * Writes the wishlist to a JSON file.
+     * @param wishlist wishlist
+     * @param jsonPath path
      */
     public static void writeToJSON(Set<CarRecord> wishlist, String jsonPath) {
         try {
@@ -82,6 +103,8 @@ public class Formatter {
 
     /**
      * Writes the wishlist to an XML file.
+     * @param wishlist wishlist
+     * @param xmlPath path
      */
     public static void writeToXML(Set<CarRecord> wishlist, String xmlPath) {
         try {
@@ -94,6 +117,12 @@ public class Formatter {
         }
     }
 
+    /**
+     * write to the file.
+     * @param wishlist wishlist
+     * @param format format
+     * @param path path
+     */
     public static void write(Set<CarRecord> wishlist, String format, String path) {
         if (format.equalsIgnoreCase("xml")) {
             writeToXML(wishlist, path);

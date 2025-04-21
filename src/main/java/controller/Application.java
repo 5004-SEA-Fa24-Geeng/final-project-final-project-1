@@ -8,7 +8,14 @@ import view.SearchWin;
 /**
  * Main application class responsible for initializing and launching the search window.
  */
-public class Application {
+public final class Application {
+
+    /**
+     * private constructor for preventing instantiate.
+     */
+    private Application() {
+
+    }
 
     /**
      * Runs the application by initializing the model and search window.

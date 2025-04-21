@@ -5,7 +5,11 @@ import controller.Application;
 /**
  * Entry point of the application.
  */
-public class App {
+public final class App {
+
+    private App() {
+
+    }
 
     /**
      * Main method to start the application.
@@ -15,3 +19,4 @@ public class App {
         Application.run();
     }
 }
+

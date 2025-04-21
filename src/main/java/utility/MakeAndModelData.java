@@ -10,7 +10,8 @@ import java.util.List;
 /**
  * Utility class for loading car make and model data from a csv file.
  */
-public class MakeAndModelData {
+public final class MakeAndModelData {
+    private MakeAndModelData() { }
 
     /**
      * Reads a CSV file and returns a mapping of car makes to their respective models.

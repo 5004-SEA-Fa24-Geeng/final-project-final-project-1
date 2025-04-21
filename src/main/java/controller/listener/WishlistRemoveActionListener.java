@@ -28,8 +28,11 @@ public class WishlistRemoveActionListener implements ActionListener {
      * @param carRecord The car record to be removed.
      * @param wishlistContentController The controller handling wishlist refresh operations.
      */
-    public WishlistRemoveActionListener(WishlistWin wishlistWin, Imodel model, CarRecord carRecord, WishlistContentController wishlistContentController) {
-        this.wishlistRemoveController = new WishlistRemoveController(wishlistWin, model, carRecord, wishlistContentController);
+    public WishlistRemoveActionListener(WishlistWin wishlistWin, Imodel model, CarRecord carRecord,
+                                        WishlistContentController wishlistContentController) {
+        this.wishlistRemoveController = new WishlistRemoveController(wishlistWin,
+                model, carRecord,
+                wishlistContentController);
         this.carRecord = carRecord;
     }
 
