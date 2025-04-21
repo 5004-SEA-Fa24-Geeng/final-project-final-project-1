@@ -1,12 +1,23 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/IE0ITl4j)
-# Final Project for CS 5004 - (APPLICATION NAME/Update)
 
-(remove this and add your sections/elements)
-This readme should contain the following information: 
+# Final Project for CS 5004 - (Online Car shopping tool)
 
-* The group member's names and link to their personal githubs
-* The application name and a brief description of the application
-* Links to design documents and manuals
-* Instructions on how to run the application
+## group members
 
-Ask yourself, if you started here in the readme, would you have what you need to work on this project and/or use the application?
+- Xun Luo (git: xunluo776)
+- Wenjia Song (git: song-wenj)
+
+## application name
+
+- application name: Online used car shopping tool
+
+This app helps people look up car info easily, if you are interest to buy or view used car for sale online, you can see the car information trough this app. You can search by brand and model, sort and filter results, view car photos, and save your favorites to a wishlist. It’s a simple tool for anyone exploring car options.
+
+## Design doc and Manual
+
+- [Design](DesignDocuments/DesignDocument.md)
+- [Manual](Manual/README.md)
+
+## how to run the application
+
+- go to src/main/java/App/App or click [here](src/main/java/App/App.java)
+- compile the main App class
